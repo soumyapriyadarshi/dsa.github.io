@@ -2,6 +2,7 @@
 #include <vector>
 using namespace std;
 
+// optimized.
 int binarySearch(vector<int> arr, int tarr){
     int st = 0, end = arr.size() - 1;
     
@@ -20,6 +21,22 @@ int binarySearch(vector<int> arr, int tarr){
     return -1;
 }
 
+// Recursion
+int binarySearchR(vector<int> arr, int tar, int st, int end){
+    if(st <= end){
+        int mid = st + (end - st)/2;
+        if(tar > arr[mid]){
+            return binarySearchR(arr, tar, mid + 1, end);
+        } else if(tar < arr[mid]){
+            return binarySearchR(arr, tar, st, mid - 1);
+        } else {
+            return mid;
+        }
+    }
+
+    return -1;
+}
+
 int main(){
     //array 1
     vector<int> arr1 = {-1, 0, 3, 4, 5, 9, 12}; // odd
@@ -27,7 +44,7 @@ int main(){
 
     //array 2
     vector<int> arr2 = {-1, 0, 3, 4, 5, 9}; //even
-    int tarr2 = 0;
+    int tarr2 = 9;
 
-    cout << binarySearch(arr2, tarr2) << endl;
+    cout << binarySearchR(arr2, tarr2, 0, arr2.size() - 1) << endl;
 }
